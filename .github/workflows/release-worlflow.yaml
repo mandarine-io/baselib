@@ -1,0 +1,13 @@
+name: Release workflow
+on:
+  push:
+    tags:
+        - 'v[0-9]+.[0-9]+.[0-9]+'
+jobs:
+  release:
+    name: Release
+    uses: mandarine-io/ci-cd/.github/workflows/release.yaml@main
+    with:
+      tag: ${{ github.ref_name }}
+    secrets:
+      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
