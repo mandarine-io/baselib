@@ -5,5 +5,5 @@ import (
 )
 
 type ApiHandler interface {
-	RegisterRoutes(router *gin.Engine, middlewares ...gin.HandlerFunc)
+	RegisterRoutes(router *gin.Engine)
 }
