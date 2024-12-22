@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/mandarine-io/baselib/pkg/locale"
-	"github.com/mandarine-io/baselib/pkg/transport/http/dto"
+	"github.com/mandarine-io/baselib/pkg/transport/http/model"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
@@ -36,23 +36,23 @@ func ErrorMiddleware() gin.HandlerFunc {
 		// build error response
 		log.Debug().Msg("build error response")
 		status := c.Writer.Status()
-		var errorResponse dto.ErrorResponse
+		var errorResponse model.ErrorResponse
 
 		var (
 			validErrs validator.ValidationErrors
-			i18nErr   dto.I18nError
+			i18nErr   model.I18nError
 		)
 		switch {
 		case errors.As(err, &validErrs):
-			errorResponse = dto.NewErrorResponse(
+			errorResponse = model.NewErrorResponse(
 				convertValidationErrorsToString(validErrs, localizer), status, c.Request.URL.Path,
 			)
 		case errors.As(err, &i18nErr):
-			errorResponse = dto.NewErrorResponse(
+			errorResponse = model.NewErrorResponse(
 				locale.LocalizeWithArgs(localizer, i18nErr.Tag(), i18nErr.Args()), status, c.Request.URL.Path,
 			)
 		default:
-			errorResponse = dto.NewErrorResponse(
+			errorResponse = model.NewErrorResponse(
 				locale.Localize(localizer, "errors.internal_error"), status, c.Request.URL.Path,
 			)
 		}

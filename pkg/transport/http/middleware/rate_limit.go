@@ -4,8 +4,8 @@ import (
 	"fmt"
 	ratelimit "github.com/JGLTechnologies/gin-rate-limit"
 	"github.com/gin-gonic/gin"
-	"github.com/mandarine-io/baselib/pkg/transport/http/dto"
 	ratelimitimpl "github.com/mandarine-io/baselib/pkg/transport/http/middleware/ratelimit"
+	"github.com/mandarine-io/baselib/pkg/transport/http/model"
 	"github.com/redis/go-redis/v9"
 	"github.com/rs/zerolog/log"
 	"net/http"
@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	ErrTooManyRequests = dto.NewI18nError("too many requests", "errors.too_many_requests")
+	ErrTooManyRequests = model.NewI18nError("too many requests", "errors.too_many_requests")
 )
 
 func MemoryRateLimitMiddleware(rps int) gin.HandlerFunc {

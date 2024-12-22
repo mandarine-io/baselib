@@ -2,7 +2,7 @@ package s3
 
 import (
 	"context"
-	dto2 "github.com/mandarine-io/baselib/pkg/transport/http/dto"
+	dto2 "github.com/mandarine-io/baselib/pkg/transport/http/model"
 	"io"
 )
 

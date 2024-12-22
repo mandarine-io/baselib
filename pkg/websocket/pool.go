@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/goccy/go-json"
 	"github.com/gorilla/websocket"
-	"github.com/mandarine-io/baselib/pkg/transport/http/dto"
+	"github.com/mandarine-io/baselib/pkg/transport/http/model"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
 	"net/http"
@@ -29,7 +29,7 @@ var (
 
 		w.WriteHeader(status)
 
-		errorResp := dto.NewErrorResponse(reason.Error(), status, r.URL.Path)
+		errorResp := model.NewErrorResponse(reason.Error(), status, r.URL.Path)
 		if err := json.NewEncoder(w).Encode(errorResp); err != nil {
 			log.Error().Stack().Err(err).Msg("failed to encode error response")
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
